@@ -9,6 +9,7 @@ obj.__proto__ === Object.prototype
 Object.prototype.__proto__ === null
 ```
 
+![原型和原型链](原型和原型链.png)
 ### 继承
 面向对象编程的三大特性：封装、继承、多态。
 
