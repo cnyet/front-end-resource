@@ -6,7 +6,7 @@
  * 4. 执行构造函数，并返回空对象，如果返回的不是对象会被忽略
  */
 
-function Obj () {
+function newInit () {
   var foo = Array.shift.call(arguments); // 第一个参数元素就是构造函数
   var newObj = Object.create(foo.prototype); // 创建一个继承构造函数原型的新对象
   foo.call(newObj, ...arguments); // 执行构造函数
