@@ -4,4 +4,6 @@
 3. Function.prototype.bind
 4. new 关键字
 5. class 关键字
-6. 
+6. Object.create()
+7. Promise
+8. Ajax
