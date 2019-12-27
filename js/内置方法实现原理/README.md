@@ -1,4 +1,5 @@
-### Javascript标准内置对象方法
+### Javascript 常用关键字的实现方法
+
 1. Function.prototype.call
 2. Function.prototype.apply
 3. Function.prototype.bind
