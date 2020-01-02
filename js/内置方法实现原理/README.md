@@ -8,3 +8,5 @@
 6. Object.create()
 7. Promise
 8. Ajax
+9. Array的浅拷贝和深拷贝
+10. Object的浅拷贝和深拷贝
