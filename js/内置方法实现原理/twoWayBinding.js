@@ -8,6 +8,8 @@
  *    形式之一；不能同时是两者。
  */
 let obj = {};
+const input = document.getElementById('input');
+const span = document.getElementById('span');
 let value;
 // 只有数据描述符
 Object.defineProperty(obj, 'name', {
@@ -22,13 +24,17 @@ Object.defineProperty(obj, 'say', {
   confugrable: true,
   enumerable: true,
   get: function() {
+    console.log('获取数据');
     return value;
   },
   set: function (newVal) {
-    value = newVal;
+    console.log('修改数据');
+    input.value = newVal;
+    span.innnerHTML = newVal;
   }
 });
 
-obj.name = 234;
-obj.say = 'hello';
+input.addEventListener('keyup', function(e) {
+   obj.name = e.target.value;
+});
 console.log(obj);
