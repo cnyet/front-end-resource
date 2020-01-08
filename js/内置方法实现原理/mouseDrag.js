@@ -1,6 +1,9 @@
 /**
  * 鼠标拖拽实现原理：
- * 鼠标指针在制定元素区域内滑动的距离就是元素移动的距离
+ * 1. 当鼠标按下时并滑动鼠标指针时计算当前指针的相对视窗的坐标
+ * 2. 鼠标指针在制定元素区域内滑动的距离就是元素移动的距离
+ * 3. 借助元素的绝对定位样式，动态改变元素的left和top值
+ * 4. 当鼠标按键弹起时，释放鼠标滑动监听的事件
  */
 
 window.onload = function() {
@@ -35,8 +38,8 @@ window.onload = function() {
       box.style.top = top + 'px';
     }
   }
+  // 鼠标按键弹起事件
   box.onmouseup = function() {
-    this.onmousedown = null;
-    this.onmouseup = null;
+    this.onmousemove = null;
   }
 }
