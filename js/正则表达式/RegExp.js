@@ -28,4 +28,3 @@ console.log(exp8); // false
 // (?<!y)x 只匹配 x ，且 x 前面不是 y 的字符串
 var exp9 = /(?<!foo) hello/.test('foo hello');
 console.log(exp9); // false
-
