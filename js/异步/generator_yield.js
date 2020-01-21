@@ -16,9 +16,12 @@ function* gen () {
 
 var g = gen();
 var result = g.next();
-result.value.then(function(res){
-  return res.data;
-}).then(function(res){
-  g.next(res);
-});
-
+if (result.done) {
+  return result.value;
+} else {
+  result.value.then(function(res){
+    return res.data;
+  }).then(function(res){
+    g.next(res);
+  });
+}

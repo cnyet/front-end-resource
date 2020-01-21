@@ -17,3 +17,6 @@ Object.prototype.__proto__ === null
 1. 对象继承：Object.create([prototype], { ... });
 2. 原型继承：修改 prototype 指向继承
 3. 通过 call, apply 方法继承
+
+### jQuery和zepto的原型实现原理
+使用插件化机制，只暴露一个全局变量$，并且将开发者的插件放在$.fn中统一管理。
