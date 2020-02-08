@@ -5,13 +5,13 @@
  * 如果时间间隔大于设定的时间就可以再次执行，否则就节流不让执行
  */
 function throttle (fn, wait) {
-  var start = new Date().getTime();
+  var start = Date.now();
   return function() {
     var args = Array.prototype.slice.call(arguments);
-    var current = new Date().getTime();
+    var current = Date.now();
     if (current - start > wait) {
       fn.call(this, args);
-      start = new Date().getTime();
+      start = Date.now();
     } else {
       console.log('间隔时间太短了');
     }
