@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Untitled Document</title>
+</head>
+
+<body>
+  <script type="text/javascript">
+  /*
+   * param1 Array 
+   * param2 Array
+   * return true or false
+   */
+  function arraysSimilar(arr1, arr2) {
+    if (!(arr1 instanceof Array) || !(arr2 instanceof Array)) {
+      return false;
+    }
+    if (arr1.length !== arr2.length) {
+      return false;
+    }
+    var typeArr = [];
+    var result = true;
+    arr1.forEach(function(element, index) {
+      var type = elementType(element);
+      if (!typeArr.includes(type)) {
+        typeArr.push(type);
+      }
+    });
+    for (var i = 0; i < arr2.length; i++) {
+      var type = elementType(arr2[i]);
+      if (!typeArr.includes(type)) {
+        result = false;
+        break;
+      }
+    }
+    return result;
+  }
+
+  function elementType(element) {
+    var type = null;
+    if (typeof element !== 'object') {
+      // String, Boolean, Number, undefined, function
+      return typeof element;
+    } else if (element instanceof Array) {
+      return 'array';
+    } else if (element === null) {
+      return 'null';
+    } else if (element.constructor === Date) {
+      return 'date';
+    } else if (element === window) {
+      return 'window';
+    } else {
+      return undefined;
+    }
+  }
+  </script>
+  <script src="compareArray.js"></script>
+</body>
+
+</html>
