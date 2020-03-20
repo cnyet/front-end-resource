@@ -1,5 +1,5 @@
 ### 模式设计
-> 模拟现实场景
+[模式设计参考](https://www.runoob.com/design-pattern/design-pattern-tutorial.html)
 
 ##### 单例模式
 作用：
@@ -24,4 +24,6 @@
 改进：
 1. 利用立即调用函数将不希望公开的单例隐藏起来：
 2. 利用 { } 块级作用域的方式隐藏内部变量
+
+
 
