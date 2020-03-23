@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JSONP</title>
+</head>
+<body>
+  <h2>a 跨域获取数据：</h2>
+  <div id="text"></div>
+</body>
+<script type="text/javascript">
+  function callbackJson(res) {
+    console.log(res);
+    document.getElementById('text').innerText = res.data;
+  }
+</script>
+<script type="text/javascript" src="http://localhost:8082/api/a?callback=callbackJson"></script>
+</html>

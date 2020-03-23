@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JSONP</title>
+</head>
+<body>
+  <h2>b 跨域获取数据：</h2>
+  <div id="text"></div>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+  $.ajax({
+    url: 'http://localhost:8082/api/b',
+    method: 'get',
+    dataType: 'jsonp',
+    jsonp: 'callback',
+    jsonpCallback: 'callbackJson'
+  })
+  function callbackJson(res) {
+    console.log(res);
+    document.getElementById('text').innerText = res.data;
+  }
+</script>
+</body>
+</html>

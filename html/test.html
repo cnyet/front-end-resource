@@ -9,25 +9,19 @@
 <div id="app">hello</div>
 <button id="btn">点击</button>
 <img >
-<script type="text/javascript" src="../js/内置方法实现原理/fetch.js"></script>
+<!-- <script type="text/javascript" src="../js/内置方法实现原理/fetch.js"></script> -->
+<script type="text/javascript" src="../lib/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="http://localhost:3000/api/wechat/jsonp?callback=callbackJson"></script> -->
 <script type="text/javascript">
-document.getElementById('btn').addEventListener('click', throttle(handle, 2000));
-function handle() {            
-　　console.log(Math.random());        
-} 
-function throttle(fn, wait) {
-  var start = Date.now();
-  return function() {
-    var args = Array.prototype.slice.call(arguments);
-    var context = this;
-    var current = Date.now();
-    if (current - start < wait) {
-      console.log('间隔时间小于'+ wait + '毫秒');
-    } else {
-      fn.apply(context, args);
-      start = Date.now();
-    }
-  };
+$.ajax({
+  url: 'http://localhost:3000/api/wechat/jsonp',
+  method: 'get',
+  dataType: 'jsonp',
+  jsonp: 'callback',
+  jsonpCallback: 'callbackJson'
+})
+function callbackJson(data) {
+  console.log(data);
 }
 </script>
 </body>

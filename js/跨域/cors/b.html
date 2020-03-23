@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CORS</title>
+</head>
+<body>
+  <h2>b 跨域资源共享：</h2>
+  <div id="text"></div>
+<script type="text/javascript">
+  fetch('http://localhost:8082/api/b', {
+    method: 'PATCH',
+    credentials: 'include',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+    }
+  }).then(function(response){
+    return response.text();
+  }).then(function(res){
+    console.log(res);
+    document.getElementById('text').innerText = res;
+  })
+</script>  
+</body>
+</html>
