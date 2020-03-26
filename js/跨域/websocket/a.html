@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WebSocket跨域</title>
+</head>
+<body>
+<script type="text/javascript">
+  var socket = new WebSocket('ws://localhost:3000');
+  socket.onopen = function () {
+    socket.send('socket from client');
+  }
+  socket.onmessage = function (e) {
+    console.log(e.data);
+  }
+</script>
+</body>
+</html>

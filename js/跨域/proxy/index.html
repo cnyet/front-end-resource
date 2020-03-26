@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>中间代理</title>
+</head>
+<body>
+  <h2>中间代理获取数据：</h2>
+  <div id="text"></div>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+  $.ajax({
+    url: '/api/a',
+    method: 'get',
+    contentType: 'application/json;charset=utf-8'
+  }).then(function(res){
+    console.log(res);
+  }).catch(function(err){
+    console.log(err);
+  });
+</script>
+</body>
+</html>

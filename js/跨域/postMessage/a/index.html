@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PostMessage</title>
+  <style type="text/css">
+    iframe{
+      display: inline;
+      visibility: hidden;
+      height: 0;
+      width: 0;
+    }
+  </style>
+</head>
+<body>
+  <h2>a Iframe跨窗口通信：</h2>
+  <div id="text"></div>
+  <iframe src="http://localhost:8082" frameborder="0" id="iframe" onload="load()"></iframe>
+  <script type="text/javascript">
+    function load() {
+      let frame = document.getElementById('iframe');
+      frame.contentWindow.postMessage('hello from a', 'http://localhost:8082');
+      window.onmessage = function(e) { 
+        console.log(e.data);
+        document.getElementById('text').innerText = e.data;
+      };
+    }
+  </script>
+</body>
+</html>

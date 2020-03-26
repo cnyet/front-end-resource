@@ -23,5 +23,4 @@ async function wait(value) {
 
 var result = wait('123');
 console.log(4, result);
-
 // 1  4  2  3

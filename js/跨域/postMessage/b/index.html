@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PostMessage</title>
+</head>
+<body>
+<script type="text/javascript">
+  window.onmessage = function(e) {
+    console.log(e.data);
+    e.source.postMessage('data from b.html', e.origin);
+  }
+</script>  
+</body>
+</html>
