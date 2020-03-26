@@ -1,78 +1,31 @@
-// var p = new Promise(function(reslove, reject) {
-//   console.log('a');
-//   reslove();
-// });
-
-// setTimeout(function() {
-//   console.log('d');
-// }, 0);
-
-// p.then(function(){
-//   console.log('c');
-// });
-// console.log('b');
-// //a b c d
-
-// // 奇树求和
-// const arr = ['1', '2', '3', 6, 4, -99, -101];
-// var sum = arr.reduce(function(iteration, value) {
-//   var item = parseInt(value);
-//   if (item && item % 2 !== 0) {
-//     return iteration + item;
-//   } 
-//   return iteration;
-// }, 0);
-// console.log(sum);
-// // 参数绑定
-// function bindLeft() {
-//   var context = this;
-//   var fn = Array.prototype.shift.call(arguments);
-//   var args = Array.prototype.slice.call(arguments);
-//   return function() {
-//     return fn.call(context, ...args, ...arguments);
-//   };
-// }
-// var fn1 = (a, b, c, d) => a - b * c + d;
-// var fn2 = bindLeft(fn1, 1, 2); 
-// var result = fn2(3, 4);
-// console.log(result);  // -1
-
-
-// 冒泡排序 int数组正整数排序，非正整数不变，每次交换等待1s
-function loop() {
-  var arr = [11, -1, 6, 5, -4, -7, 9, 8];
-  var len = arr.length;
-  var time = 0;
-  for (var i = 0; i < len - 1; i++) {
-    if (arr[i] < 0) {
-      continue;
-    }
-    for (var l = i + 1; l < len; l++) {
-      if (arr[l] < 0) {
-        continue;
+function omniPoller(queryStatus, successCallback){
+  for (var i = 0; i < 5; i++) {
+    loop(i).then(function(res){
+      var result = queryStatus(res);
+      if (result) {
+        successCallback();
       }
-      callback(i, l, ++time, arr).then(function(a){
-        var b = a + 1;
-        if(a == len-2 && b == len-1) {
-          console.log('排序结果', arr);
-        }
-      });
-    }
+    });
   }
 }
 
-function callback(i, l, time, arr) {
-  return new Promise(function(resolve, reject) {
-    setTimeout(function() {
-      console.log('第' + time + '次暂停1秒');
-      if (arr[i] > arr[l]) {
-        var temp = arr[i];
-        arr[i] = arr[l];
-        arr[l] = temp;
-      }
-      resolve(i);
-    }, time * 1000);
+function queryStatus(param) {
+  if (param != 5) {
+    return false;
+  }
+  return true;
+}
+
+function successCallback() {
+  console.log('implement successfully.');
+}
+
+function loop(time) {
+  var wait = Math.pow(1.5, time);
+  return new Promise(function(resolve, reject){
+    setTimeout(function(){
+      resolve(time);
+      console.log('第'+ time +'次等待时间' + wait);
+    }, wait * 1000);
   });
 }
-// 执行排序
-loop();
