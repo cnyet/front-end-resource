@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title></title>
-  <!-- <script type="text/javascript" src="../lib/jquery.min.js"></script> -->
-  <!-- <script type="text/javascript" src="../lib/zepto.min.js"></script> -->
+  <title>测试</title>
 </head>
 <body>
-<div id="app">hello</div>
+<h3 id="app">0</h3>
 <button id="btn">点击</button>
 <img >
-<!-- <script type="text/javascript" src="../js/内置方法实现原理/fetch.js"></script> -->
-<script type="text/javascript" src="../lib/jquery.min.js"></script>
-<!-- <script type="text/javascript" src="http://localhost:3000/api/wechat/jsonp?callback=callbackJson"></script> -->
 <script type="text/javascript">
-$.ajax({
-  url: 'http://localhost:3000/api/wechat/jsonp',
-  method: 'get',
-  dataType: 'jsonp',
-  jsonp: 'callback',
-  jsonpCallback: 'callbackJson'
-})
-function callbackJson(data) {
-  console.log(data);
-}
+  var num = 1;
+  document.getElementById('btn').addEventListener('click', debounce(function(){
+    document.getElementById('app').innerText = num++;
+  }, 1000));
+  function debounce(fn, delay) {
+    var timer = null;
+    return function() {
+      var args = Array.prototype.slice.call(arguments);
+      var context = this;
+      clearTimeout(timer);
+      timer = setTimeout(function() {
+        fn.apply(context, args);
+      }, delay);
+    }
+  }
 </script>
 </body>
 </html>

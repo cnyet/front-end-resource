@@ -1,6 +1,5 @@
 /**
  * 防抖函数
- * 上次执行完成以后，在规定的时间间隔以后才能再次执行
  */
 function debounce(fn, delay) {
   var timer = null;
@@ -11,12 +10,10 @@ function debounce(fn, delay) {
     timer = setTimeout(function() {
       fn.apply(context, args);
     }, delay);
-  };
+  }
 }
-
 /**
  * 节流函数
- * 在规定的时间内只能执行一次
  */
 function throttle(fn, wait) {
   var start = Date.now();
@@ -32,12 +29,47 @@ function throttle(fn, wait) {
     }
   };
 }
-
-function myNew() {
-  var context = Array.prototype.shift.call(arguments);
-  var obj = Object.create(context.prototype);
-  return function() {
-    var result = context.call(obj, ...arguments);
-    return result;
+/**
+ * bind
+ */
+function bind () {
+  if (typeof this === 'function') {
+    throw new TypeError('this is not a function.');
   }
+  var fn = this;
+  var args = Array.prototype.slice.call(arguments);
+  var context = args.shift();
+  return function() {
+    return fn.apply(context, [...args, ...arguments]);
+  };
+}
+
+/**
+ * call
+ */
+function call() {
+  if (typeof this === 'function') {
+    throw new TypeError('this is not a function.');
+  }
+  var args = Array.from(arguments);
+  var context = args.shift();
+  context.fn = this;
+  var result = context.fn(...args);
+  delete context.fn;
+  return result;
+}
+
+/**
+ * apply
+ */
+function apply () {
+  if (typeof this === 'function') {
+    throw new TypeError('this is not a function.');
+  }
+  var args = Array.from(arguments);
+  var context = args.shift();
+  context.fn = this;
+  var result = context.fn([...args]);
+  delete context.fn;
+  return result;
 }
