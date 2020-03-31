@@ -18,3 +18,17 @@ Function.prototype.bind = Function.prototype.bind || function() {
     return self.apply(context, rest1.concat(rest2));
   };
 }
+
+var parent = {
+  name: 'parent',
+  getName: function(age) {
+    console.log(this.name, age);
+  }
+}
+
+var son = {
+  name: 'son'
+};
+
+var fn = parent.getName.myBind(son, 12);
+fn();

@@ -18,3 +18,7 @@ Function.prototype.apply = Function.prototype.apply || function() {
   delete context.fn;
   return result;
 };
+
+var arr = [3,1,2];
+var result = Math.min.apply(null, arr);
+console.log(result);

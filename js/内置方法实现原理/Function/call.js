@@ -19,3 +19,14 @@ Function.prototype.call = Function.prototype.call || function() {
   delete context.fn;
   return result;
 };
+
+function Parent (name, age) {
+  this.name = name;
+  this.age = age;
+}
+function Son (name, age, address) {
+  this.address = address;
+  Parent.call(this, name, age);
+}
+var son = new Son('hello', 12, 'cn');
+console.log(son);
