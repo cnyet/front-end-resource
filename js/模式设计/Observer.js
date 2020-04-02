@@ -1,7 +1,10 @@
 /**
- * 观察者模式，存在两种角色：Observer(观察者) + Subject(被观察者)
- * 被观察者是一套需要维护的信息集合，接收状态变化，并且向观察者提供获取信息的接口
+ * 观察者模式，由两部分组成：Observer(观察者) + Subject(被观察者)
+ * 被观察者是主体，它只需维护一套观察者依赖的数据和接口集合，只有自己才能改变自己的数据，
+ * 所有观察者都要有一个统一的借接口来获取数据
  * 一个被观察者可以关联多个观察者，观察者和被观察者是松耦合的关系
+ * 应用场景：气象站 - 查看天气的用户
+ * 主要用于单个应用内部 document.addEventListener()
  */
 class Subject {
   constructor() {
@@ -19,7 +22,7 @@ class Subject {
     this.observer.push(observer);
   }
   remove(observer) {
-    var index = this.observer.findIndex(observer);
+    var index = this.observer.indexOf(observer);
     this.observer.splice(index, 1);
   }
   notify(params) {
