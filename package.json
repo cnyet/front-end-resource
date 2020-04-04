@@ -1,0 +1,26 @@
+{
+  "name": "front-end-resource",
+  "version": "1.0.0",
+  "description": "Front-End resources integration include javascript, css and html.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cnyet/front-end-resource.git"
+  },
+  "author": "yates",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cnyet/front-end-resource/issues"
+  },
+  "homepage": "https://github.com/cnyet/front-end-resource#readme",
+  "devDependencies": {
+    "jest": "^25.2.7"
+  }
+}

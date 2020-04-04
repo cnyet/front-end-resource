@@ -1,8 +1,0 @@
-/**
- * babel 基本配置
- */
-
-{
-  "presets": ["es2015", "latest"],
-  "plugins": []
-}
