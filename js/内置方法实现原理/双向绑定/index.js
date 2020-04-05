@@ -8,8 +8,9 @@
  *    形式之一；不能同时是两者。
  */
 let obj = {};
+let inputVal = null;
 const input = document.getElementById('input');
-const span = document.getElementById('span');
+const span = document.getElementById('text');
 let value;
 // 只有数据描述符
 Object.defineProperty(obj, 'name', {
@@ -20,21 +21,20 @@ Object.defineProperty(obj, 'name', {
 });
 
 // 只有存取描述符
-Object.defineProperty(obj, 'say', {
+Object.defineProperty(obj, 'value', {
   confugrable: true,
   enumerable: true,
   get: function() {
     console.log('获取数据');
-    return value;
+    return inputVal;
   },
   set: function (newVal) {
-    console.log('修改数据');
-    input.value = newVal;
-    span.innnerHTML = newVal;
+    console.log('修改数据', obj);
+    inputVal = span.innerText = newVal;
   }
 });
 
 input.addEventListener('keyup', function(e) {
-   obj.name = e.target.value;
+   obj.value = e.target.value;
 });
-console.log(obj);
+console.log(obj.value);
