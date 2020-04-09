@@ -73,3 +73,13 @@ function apply () {
   delete context.fn;
   return result;
 }
+
+function myNew () {
+  var fn = Array.prototype.shift.call(arguments);
+  var newObj = Object.create(fn.prototype);
+  return function() {
+    return fn.apply(newObj, [...arguments]);
+  }
+}
+
+myNew (Person)()
