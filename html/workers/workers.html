@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>web workers</title>
+</head>
+
+<body>
+  <h3 id="text">0</h3>
+  <button id="btn1">worker开始</button>
+  <button id="btn2">worker结束</button>
+  <script type="text/javascript">
+  var worker = null;
+  window.onload = function() {
+    document.getElementById('btn1').addEventListener('click', function() {
+      startWorker();
+    });
+    document.getElementById('btn2').addEventListener('click', function() {
+      stopWorker();
+    });
+  }
+  function startWorker() {
+    if (typeof Worker !== 'undefined') {
+      if (!worker) {
+        worker = new Worker('workers.js');
+      }
+      worker.onmessage = function(event) {
+        console.log(event.data);
+        document.getElementById('text').innerText = event.data;
+      };
+    }
+  }
+  function stopWorker() {
+    worker.terminate();
+    worker = null;
+  }
+  </script>
+</body>
+
+</html>
