@@ -74,12 +74,21 @@ function apply () {
   return result;
 }
 
-function myNew () {
-  var fn = Array.prototype.shift.call(arguments);
-  var newObj = Object.create(fn.prototype);
-  return function() {
-    return fn.apply(newObj, [...arguments]);
-  }
+function add () {
+  var res = fn.bind(this, ...arguments);
+  console.log(res);
+}
+function fn() {
+  var arr = Array.prototype.slice.call(arguments);
+  console.log(arr);
+  var res = arr.reduce(function(sum, item) {
+    return sum * item;
+  });
+  return res;
 }
 
-myNew (Person)()
+// var res = add(1) // 1; 
+var res = add(1)(2) // 3; 
+// var res = add(1)(2)(3) // 6;
+// var res = add(1, 2)(3) // 5;
+// console.log('结果', res);
