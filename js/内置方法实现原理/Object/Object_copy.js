@@ -44,6 +44,26 @@ function deepCopy(obj){
   return result;
 }
 
+function deepMerge (...objs) {
+  const result = Object.create(null);
+  objs.forEach(obj => {
+    if (obj) {
+      Object.keys(obj).forEach(key => {
+        const value = obj[key];
+        if (typeof value === 'object') {
+          if (result[key]) {
+            result[key] = deepMerge(result[key], value);
+          } else {
+            result[key] = deepMerge(value);
+          }
+        } else {
+          result[key] = value;
+        }
+      })
+    }
+  })
+}
+
 /**
  * 3. jQuery.extends([deep], target, [object1], [object2]);
  *    用于将一个或多个对象的内容合并到目标对象
