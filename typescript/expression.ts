@@ -21,3 +21,23 @@ class HttpClient {
 
 var http: any = new HttpClient('http');
 console.log(http);
+
+
+@sealed
+class Greater {
+  greeting: string;
+  constructor (message: string) {
+    this.greeting = message;
+  }
+  great () {
+    return 'hello' + this.greating;
+  }
+}
+
+function sealed (constructor: Function) {
+  Object.seal(constructor);
+  Object.seal(constructor.prototype);
+}
+
+const greater = new Greater();
+console.log(greater);

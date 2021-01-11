@@ -6,7 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 /**
  * 装饰器 - 是一种特殊类型的声明，它能够被附加到类声明，方法， 访问符，属性或参数上
- *  装饰器使用 @expression这种形式，expression求值后必须为一个函数，它会在运行时被调用，被装饰的声明信息做为参数传入
+ * 装饰器使用 @expression这种形式，expression求值后必须为一个函数，它会在运行时被调用，被装饰的声明信息做为参数传入
  */
 function log(params) {
     console.log(params); // class HttpClient
@@ -16,13 +16,14 @@ function log(params) {
         console.log('run...');
     };
 }
-let HttpClient = class HttpClient {
-    constructor(name) {
+var HttpClient = /** @class */ (function () {
+    function HttpClient(name) {
         this.name = name;
     }
-};
-HttpClient = __decorate([
-    log
-], HttpClient);
+    HttpClient = __decorate([
+        log
+    ], HttpClient);
+    return HttpClient;
+}());
 var http = new HttpClient('http');
 console.log(http);

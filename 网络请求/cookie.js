@@ -28,7 +28,7 @@ function getCookie (name) {
 }
 
 /**
- * 删除cookie
+ * 根据cookie名删除cookie
  */
 function deleteCookie (name) {
   var expires = new Date();
@@ -36,6 +36,20 @@ function deleteCookie (name) {
   expires.setTime(expires.getTime() - 1);
   if (value !== null) {
     document.cookie = name + '=' + value + ';expires=' + expires.toGMTString();
+  }
+}
+
+/**
+ * 清楚所有cookie
+ */
+function clearCookie() {
+  var date = new Date();
+  var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
+  date.setTime(date.getTime() - 1000);
+  if (keys) {
+    for (var i = 0; i < keys.length; i++) {
+      document.cookie = keys[i] + '=0; expires=' + date.toGMTString() + '; path=/';
+    }  
   }
 }
 

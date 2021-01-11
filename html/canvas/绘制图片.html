@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>把一张图片绘制到canvas画布上</title>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <script>
+    var myCanvas = document.getElementById('canvas');
+    myCanvas.width = 200;
+    myCanvas.height = 200;
+    var canvasContext = myCanvas.getContext('2d');
+    var image = new Image(100, 100);
+    image.src = './01.png';
+    image.onload = function() {
+      console.log(image);
+      canvasContext.drawImage(image, 50, 50);
+    }
+  </script>
+</body>
+</html>
