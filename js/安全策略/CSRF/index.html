@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSRF 攻击</title>
+</head>
+<body>
+  <h1>content</h1>
+
+  <script>
+    fetch('/get?name=admin&password=123').then(function(res) {
+      console.log(res);
+    }).catch(function(err) {
+      console.error(err);
+    });
+
+    fetch('/post', {
+      method: 'post',
+      body: JSON.stringify({
+        name: 'admin',
+        password: '123'
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(function(res) {
+      console.log(res);
+    }).catch(function(err) {
+      console.error(err);
+    });
+
+  </script>
+</body>
+</html>
