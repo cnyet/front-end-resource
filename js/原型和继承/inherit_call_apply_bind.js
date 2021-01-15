@@ -3,7 +3,7 @@
  */
 function Person (name) {
   this.name = name;
-  function getName() {
+  this.getName = function () {
     console.log(this.name);
   }
 }
@@ -12,9 +12,9 @@ function Boy (name, age) {
   Person.call(this, name);
   // Person.apply(this, [name]);
 }
-
+var person = new Person(123);
 var boy = new Boy('tom', 12);
-console.log(boy);  // { age: 12, name: 'tom', getName: [Function] }
+console.log(boy.__proto__);  // { age: 12, name: 'tom', getName: [Function] }
 
 var obj = {
   name: '小明',

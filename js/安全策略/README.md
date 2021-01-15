@@ -9,3 +9,7 @@
 > CSRF(Cross Site Request Forgery)或者XSRF，是跨站请求伪造，是指一个域网站向另一个域网站发起请求功能，攻击者通过一些技术手段欺骗用户使用浏览器去访问一个自己曾经认证过的网站并执行一些敏感操作（如转账）。
 
 ### CSRF 防御策略
+- 验证请求头的 referer 字段，referer 是该HTTP请求的来源地址
+- 验证请求参数中 token
+- 在请求头中自定义 csrftoken
+- 在 Set-Cookie 中设置 SameSite 属性，限制cookie自动发送

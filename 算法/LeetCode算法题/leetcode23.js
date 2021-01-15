@@ -1,8 +1,6 @@
 /**
  * 合并K个排序链表，返回合并后的排序链表
- * 解题思路：遍历所有的链表，把最小数从链表中找出来，然后删除这个最小数
- * 以此类推，每一轮都比较 k 个新链表头的大小，得出最后的结果
- * 时间复杂度：O(nk×log(k))
+ * 解题思路：建一个容量为K的队列，
  */
 // 输入：
 // [
@@ -11,12 +9,21 @@
 //   2 -> 6
 // ]
 // 输出：1 -> 1 -> 2 -> 3 -> 4 -> 4 -> 5 -> 6
-function mergeKLists(lists) {
 
+// 定义一个单链表结构
+function ListNode(val) {
+  this.val = (val === undefined ? 0 : val)
+  this.next = (next === undefined ? null : next)
 }
 
-// 模拟链表
-function ListNode(val) {
-  this.val = val;
-  this.next = null;
+function mergeKLists(lists) {
+  if (lists.length === 0) {
+    return null;
+  } else if (lists.length === 1) {
+    return lists[0];
+  } else {
+    lists.forEach(item => {
+
+    });
+  }
 }
