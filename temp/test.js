@@ -1,3 +1,5 @@
-var str = "aaa@qq.com";
-console.log(str.match(/^\w+@[a-zA-Z0-9]{2,10}(.com|cn)$/));
-console.log(/^\w+@[a-zA-Z0-9]{2,10}(.com|.cn)$/.test(str));
+var arr = [1, 2, 3, 4, 5];
+var result = arr.reduceRight(function(acc, val){
+  return acc + val.toString()
+})
+console.log(result.split(''));

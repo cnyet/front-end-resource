@@ -10,7 +10,6 @@
  */
 Array.prototype.myReduce = Array.prototype.myReduce || function(fn, firstValue) {
   var arr = this;
-  var newArr = [];
   var accumulator = 0;
   for (var i = 0; i < arr.length; i++) {
     accumulator = fn(accumulator, arr[i], i, arr)

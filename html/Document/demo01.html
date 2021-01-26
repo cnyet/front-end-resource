@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>页面对象</title>
+  <style type="text/css">
+    html, body{
+      margin: 0;
+      padding: 0;
+    }
+    .wrap{
+      width: 300px;
+      height: 200px;
+      margin: 50px auto;
+      border: 1px red solid;
+      padding: 20px;
+      background-color: #f0f0f0;
+      overflow: auto;
+    }
+    .box{
+      height: 500px;
+      width: 500px;
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap" id="wrap">
+    <div class="box" id="box"></div>
+  </div>
+  <script type="text/javascript">
+    var wrap = document.getElementById('wrap');
+    var clientLeft = wrap.clientLeft; // 元素的左边框的宽度
+    var clientTop = wrap.clientTop; // 元素的上边框的宽度
+    var clientWidth = wrap.clientWidth; // 元素内部的宽度，包含内边距，但不包括竖直滚动条、边框和外边距, clientWidth 可以通过 width + padding - 竖直滚动条高度 (如果存在)来计算
+    var clientHeight = wrap.clientHeight; // 元素内部的高度，包含内边距，但不包括水平滚动条、边框和外边距, clientHeight 可以通过 height + padding - 水平滚动条高度 (如果存在)来计算
+    console.log('clientLeft:', clientLeft);
+    console.log('clientTop:', clientTop);
+    console.log('clientWidth:', clientWidth);
+    console.log('clientHeight:', clientHeight);
+    
+    // 没有水平滚动条的情况下所有内容所需的最小宽度与clientWidth相同, chrome获取的 scrollWidth 和 IE，火狐下获取的 scrollWidth 并不相同
+    var scrollHeight = wrap.scrollHeight; // 一个元素内容高度的度量，包括由于溢出导致的视图中不可见内容, 包括元素的padding，不包括border和margin
+    var scrollWidth = wrap.scrollWidth; // 一个元素内容宽度的度量，包括由于溢出导致的视图中不可见内容, 包括元素的padding，不包括border和margin
+    var scrollTop = wrap.scrollTop; // 获取或设置一个元素的内容垂直滚动的距离
+    var scrollLeft = wrap.scrollLeft; // 读取或设置元素滚动条到元素左边的距离
+    console.log('scrollHeight', scrollHeight);
+    console.log('scrollWidth', scrollWidth);
+    // 监听竖直和水平滚动
+    wrap.addEventListener('scroll', function(e){
+      console.log('scrollTop', e.target.scrollTop);
+      console.log('scrollLeft', e.target.scrollLeft);
+    });
+
+    // 各浏览器的offsetWidth可能有所不同，offsetWidth是 = border + 水平线上的内边距(padding) + 竖直方向滚动条(scrollbar)（如果存在的话）+ width
+    var offsetWidth = wrap.offsetWidth;
+    var offsetHeight = wrap.offsetHeight;
+    var offsetLeft = wrap.offsetLeft; // 当前元素到左边框的距离
+    var offsetTop = wrap.offsetTop; // 当前元素到上边框的距离
+    console.log('offsetWidth', offsetWidth);
+    console.log('offsetHeight', offsetHeight);
+    console.log('offsetLeft', offsetLeft);
+    console.log('offsetTop', offsetTop);
+  </script>
+</body>
+</html>

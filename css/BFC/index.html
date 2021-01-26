@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BFC</title>
+  <style type="text/css">
+    html, body{
+      margin: 0;
+      padding: 0;
+    }
+.blue, .red-inner {
+  height: 50px;
+  margin: 10px 0;
+}
+
+.blue {
+  background: blue;
+}
+
+.red-outer {
+  overflow: hidden;
+  background: red;
+}
+  </style>
+</head>
+<body>
+<div style="margin:10px 0; height: 20px; background-color: red;"></div>
+<div style="overflow: auto;">
+  <div style="margin:20px 0; height: 20px; background-color: blue;"></div>
+  <div style="margin:20px 0; height: 20px; background-color: red;"></div>
+</div>
+
+</body>
+</html>

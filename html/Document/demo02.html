@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DOM 元素的增删改查</title>
+  <style type="text/css">
+    html, body{
+      margin: 0;
+      padding: 0;
+    }
+    .wrap{
+      width: 600px;
+      height: 300px;
+      margin: 50px auto;
+      border: 1px red solid;
+      padding: 20px;
+      background-color: #f0f0f0;
+      overflow: auto;
+    }
+    .input{
+      line-height: 20px;
+    }
+    .list{
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap" id="wrap">
+    <div class="toolbar">
+      <input class="input" type="text" id="inputVal">
+      <button id="btn">添加</button>
+    </div>
+    <ul class="list" id="list"></ul>
+  </div>
+  <script type="text/javascript">
+    var listWrap = document.getElementById('list');
+    // 添加节点
+    document.getElementById('btn').addEventListener('click', function(){
+      var inputVal = document.getElementById('inputVal').value;
+      var liNode = document.createElement('li');
+      var textNode = document.createTextNode(inputVal);
+      liNode.appendChild(textNode);
+      if (inputVal !== '') {
+        listWrap.append(liNode);
+      }
+    });
+    // 删除节点
+    listWrap.addEventListener('click', function(e){
+      var currentNode = e.target;
+      listWrap.removeChild(currentNode);
+    });
+  </script>
+</body>
+</html>
