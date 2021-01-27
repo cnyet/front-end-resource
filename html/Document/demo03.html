@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>获取某个元素节点相对视窗的位置</title>
+  <style type="text/css">
+    html, body{
+      margin: 0;
+      padding: 0;
+    }
+    .wrap{
+      width: 300px;
+      height: 200px;
+      margin: 50px auto;
+      border: 1px red solid;
+      padding: 20px;
+      background-color: #f0f0f0;
+      overflow: auto;
+    }
+    .box{
+      height: 500px;
+      width: 500px;
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap" id="wrap">
+    <div class="box" id="box"></div>
+  </div>
+  <script type="text/javascript">
+    var wrap = document.getElementById('wrap');
+    // 方法1:
+    // offsetTop, offsetLeft 是相对于父节点的位置, getBoundingClientRect()获取任何节点相对视窗的位置
+    var boxNode = document.getElementById('box');
+    var rect = boxNode.getBoundingClientRect();
+    console.log('box 相对视窗的位置', rect);
+
+    // 方法2: 递归遍历目标节点的offsetTop
+    var offset = function(ele) {
+      var result = {
+        top: 0,
+        left: 0
+      }
+      var position;
+      var getOffset = function(node, init) {
+        console.log(node.nodeType);
+        // node.nodeType返回该节点的类型，1表示一个元素节点, 9表示document根节点
+        if (node.nodeType !== 1) {
+          return;
+        }
+        // getComputedStyle 获取元素的所有CSS属性的值
+        position = window.getComputedStyle(node, null).getPropertyValue('position');
+        if (typeof init === 'undefined' && position === 'static') {
+          getOffset(node.parentNode)
+          return;
+        }
+        result.top = node.offsetTop + result.top - node.scrollTop;
+        result.left = node.offsetLeft + result.left - node.scrollLeft;
+        if (position === 'fixed') {
+          return;
+        }
+        getOffset(node.parentNode);
+      };
+      // 当前 DOM 节点的 display === 'none' 时, 直接返回 {top: 0, left: 0}
+      if (window.getComputedStyle(ele)['display'] === 'none') {
+       return result
+      }
+      getOffset(ele, true)
+      return result;
+    };
+
+    var boxRect = offset(boxNode);
+    console.log('box 相对视窗的位置', boxRect);
+  </script>
+</body>
+</html>

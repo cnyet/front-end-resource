@@ -14,7 +14,7 @@ var obj = {
 };
 Object.defineProperty(obj, 'name', {
   configerable: true,  // 设置该属性的描述符能否被修改，该属性能否被删除，默认 false
-  enumerable: true,  // 设置该属性能否被枚举，默认 false
+  enumerable: true,  // 设置该属性能否被枚举，能否通过 for-in 循环返回属性, 默认 false
   // writable: true,    // 该属性能否被赋值运算符改写， 默认 false
   // value: 'world',  // 属性对应的值，可以是数值，对象、函数，默认 undefined
   get: function() {

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>高斯模糊</title>
+  <style type="text/css">
+    html, body{
+      padding: 0;
+      margin: 0;
+    }
+    .wrap{
+      width: 600px;
+      height: 375px;
+      position: relative;
+    }
+    .ball{
+      width: 100%;
+    }
+    .text{
+      width: 300px;
+      height: 200px;
+      position: absolute;
+      top: 80px;
+      left: 150px;
+      backdrop-filter: saturate(140%) blur(10px);
+      background-color: rgba(255,255,255,0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <img class="ball" src="./ball.jpg">
+    <div class="text"></div>
+  </div>
+</body>
+</html>
