@@ -1,0 +1,46 @@
+/**
+ * eslint 配置文件主要配置选项包括：
+ * 1. Environments：指定js脚本最终运行的环境
+ * 2. Globals：js脚本在执行过程中可访问的全局变量
+ * 3. Rules：有哪些错误级别和哪些规则
+ * 4. Plugins：引入第三方插件定义的额外的规则，环境等配置
+ */
+{
+  "root": true,  // eslint把当前文件所在的位置作为项目根目录
+  "env": {  // 设置环境
+    "browser": true, // 指定eslint在浏览器环境下生效
+    "node": true, // 指定eslint在node环境下生效
+    "es6": true// 自动支持 es6 的全局变量
+  },
+  "extends": [ // 继承配置文件
+    "eslint:recommended",  // 继承了规则列表中标记 ✔︎ 的所有推荐的规则
+    "plugin:react/recommended", // 继承以 eslint-plugin- 开头的包 eslint-plugin-react 的配置名为 recommended 的规则
+    "plugin:vue/essential"// 继承 eslint-plugin-vue 包配置名为 essential 的规则
+  ],
+  "globals": {
+    "$": true// 设置全局环境变量 $
+  },
+  "parserOptions": {  // 指定解析器选项，默认脚本是ES5语法
+    "ecmaVersion": 6,  // 指定编写js的版本为 ES6 语法
+    "sourceType": "module",  // 脚本引用类型，默认以 script 标签引用，module 是指以模块的方式引用
+    "ecmaFeatures": {  // 声明js中支持的额外的新特性
+      "jsx": true// 支持 jsx 语法
+    }
+  },
+  "rules": { // 自定义规则列表
+    "semi": ["error", "always"], // 语句一直要以分号结束，否则出现错误提示
+    "quotes": ["error", "single"], // 必须是单引号，否则出现错误提示
+    "indent": ["error", 2], // 以2个空格代替缩紧，否则出现错误提示
+  },
+  "overrides": [ // 针对某些文件重写配置
+    {
+      "files": [ // 匹配相关的文件
+        "**/__tests__/*.{j,t}s?(x)",
+        "**/tests/unit/**/*.spec.{j,t}s?(x)"
+      ],
+      "env": {
+        "jest": true// 针对 tests 目录下面的 .js, .jsx, .ts, .tsx 文件在 jest 环境下生效
+      }
+    }
+  ]
+}

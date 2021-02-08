@@ -1,0 +1,26 @@
+/**
+ * tslint 主要配置选项：
+ */
+{
+  "extends": [  // 继承配置文件
+    "tslint:recommended",  // 继承了规则列表中标记 ✔︎ 的所有推荐的规则
+    "tslint-config-prettier"// 用 TSLint 和 Prettier 结合格式化文件
+  ],
+  "rulesDirectory": "", // 自定义规则的文件目录
+  "rules": { // 自定义的规则运用于 .ts, .tsx 文件
+    "max-line-length": {
+      "options": [120]// 限制单行代码长度为120个字符
+    },
+    "no-consecutive-blank-lines": false, // 支持连续的空白行
+    "no-conditional-assignment": true,  // 不允许在条件语句中进行任何的类型的赋值
+    "no-console": { // 禁止代码中 console
+      "severity": "warning", // 针对 console 指定的类型发出警告提示
+      "options": ["debug", "info", "log", "time", "timeEnd", "trace"]
+    }
+  },
+  "jsRules": { // 自定义的规则运用于 .js, .jsx 文件
+    "max-line-length": {
+      "options": [120]// 限制单行代码长度为120个字符
+    }
+  }
+}

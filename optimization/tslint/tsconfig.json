@@ -1,0 +1,30 @@
+/**
+ * 指定 tsc 编译这个项目的根文件和编译选项
+ * tsconfig.json 文件所在的目录为当前项目的根目录
+ */
+{
+  "compilerOptions": {
+    "moduleResolution": "node",  // 设置解析引入模块的方式
+    "module": "es6",  // 指定生成哪个模块系统的代码
+    "target": "es5", // 指定最终生成代码的版本
+    "lib": ["es2015", "es2016", "es2017", "dom"],  // 编译过程中需要引入的库文件的列表
+    "strict": true,  // 启用严格模式
+    "sourceMap": true,  // 生成相应的 .map 文件
+    "declaration": true, // 生成相应的 .d.ts文件
+    "declarationDir": "dist/types",  // 生成声明文件的输出路径
+    "allowSyntheticDefaultImports": true, // 允许从没有设置默认导出的模块中默认导入
+    "experimentalDecorators": true,  // 启用实验性的ES装饰器
+    "emitDecoratorMetadata": true, // 给源码里的装饰器声明加上设计类型元数据
+    "outDir": "dist/lib", // 输出文件的目录
+    "typeRoots": [ // 要包含的类型声明文件路径列表
+      "node_modules/@types"
+    ]
+  },
+  "include": [  // tsc 解析包含的文件目录列表
+    "src/**/*"
+  ],
+  "exclude": [  // tsc 解析不包含的文件目录列表
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}
