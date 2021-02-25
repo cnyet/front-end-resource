@@ -16,7 +16,7 @@ class HttpClient {
   name: string;
   constructor(name: string) {
     this.name = name;
-  }
+  } 
 }
 
 var http: any = new HttpClient('http');

@@ -8,13 +8,13 @@ function greet(params) {
     console.log(params);
 }
 var Foo = /** @class */ (function () {
-    function Foo(age) {
-        this.age = age;
+    function Foo(name) {
+        this.name = name;
     }
     Foo = __decorate([
         greet
     ], Foo);
     return Foo;
 }());
-var foo = new Foo(123);
+var foo = new Foo('hello');
 console.log(foo);

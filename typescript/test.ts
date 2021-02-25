@@ -1,17 +1,14 @@
-class AxiosError extends Error {
-  isAxiosError: boolean;
-  code?: string;
-  request?: any;
-  message?: string;
-  constructor (message: string, config: any, code?: string|null, request?: any, response? :any) {
-    super(message);
+function greet(params: any) {
+  console.log(params);
+}
 
-    this.config = config;
-    this.code = code;
-    this.request = request;
-    this.response = response;
+@greet
+class Foo {
+  name: string;
+  constructor (name: string) {
+    this.name = name;
   }
 }
 
-var axios = new AxiosError('msg', {isAxiosError: true}, '200');
-console.log(axios);
+var foo = new Foo('hello');
+console.log(foo);

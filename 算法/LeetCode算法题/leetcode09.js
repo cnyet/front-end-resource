@@ -1,7 +1,7 @@
 /**
  * 回文数 - 给你一个整数 x ，如果 x 是一个回文整数，返回 ture ；否则，返回 false
  * 回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数
- * 思路：1. 回文字符串有对称性的特点，可以 用双指针从两端往中间移动做比较
+ * 思路：1. 回文字符串有对称性的特点，可以用双指针从两端往中间移动做比较
  * 2. 字符串本身可以看做数组，左指针从0开始，每次移动+1，右指针从length-1开始，每次移动-1
  */
 var isPalindrome = function(x) {
@@ -31,11 +31,11 @@ function validPalindrome (str) {
     j--;
   }
   // 左指针右移
-  if (isPalindrome(str.slice(str[i+1], str[j]))) {
+  if (isPalindrome(str.slice(i+1, j))) {
     return true;
   }
   // 右指针左移
-  if (isPalindrome(str.slice(str[i], str[j-1]))) {
+  if (isPalindrome(str.slice(i, j-1))) {
     return true;
   }
   return false;

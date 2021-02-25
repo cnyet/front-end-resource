@@ -10,7 +10,7 @@ function throttle (fn, wait) {
     var args = Array.prototype.slice.call(arguments);
     var current = Date.now();
     if (current - start > wait) {
-      fn.call(this, args);
+      fn.apply(this, args);
       start = Date.now();
     } else {
       console.log('间隔时间太短了');

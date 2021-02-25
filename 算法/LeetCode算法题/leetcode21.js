@@ -7,7 +7,7 @@
 输出：1->1->2->3->4->4
 
 // 定义一个单链表结构
-function ListNode(val) {
+function ListNode(val, next) {
   this.val = (val===undefined ? 0 : val)
   this.next = (next===undefined ? null : next)
 }
