@@ -8,74 +8,63 @@
  *    因此在默认状态时将每个then的执行成功事件加入队列中，当异步完成以后，再依次执行事件队列里面的方法
  */
 class Promise {
-  constructor (callback) {
-    // 三种状态
-    this.status = 'pending';
-    // 保存函数体执行成功后的返回值
-    this.resolveVal = undefined;
-    // 保存函数体执行失败后的返回值
-    this.rejectVal = undefined;
-    // 保存函数体执行成功后的事件队列
-    this.resolveFn = [];
-    // 保存函数体执行失败后的事件队列
-    this.rejectFn = [];
-    // 保存函数体执行成功的回调函数
-    const resolve = (value) => {
+  // 构造函数
+  constructor (executor) {
+    this.status = 'pending'; // promise 状态
+    this.value = null; // promise 执行成功返回的结果
+    this.reason = null; // promise 执行失败返回的结果
+    this.onFulfilledArray = []; // 保存 then 链式调用的数组
+    this.onRejectedArray = []; // 保存 catch 链式调用的数字
+    // 异步执行成功以后的回调函数 
+    var resolve = (value) => {
       if (this.status === 'pending') {
         this.status = 'fulfilled';
-        this.resolveVal = value;  
-        // 依次执行成功后回调的事件队列
-        this.resolveFn.forEach(fn => {
-          fn();
+        this.value = value;
+        this.onFulfilledArray.forEach(callback => {
+          callback(value);
         });
-        console.log(4, 'resolve: ' + this.status)
       }
     };
-    // 执行失败的回调函数
-    const reject = (value) => {
+    // 异步执行失败以后的回调函数
+    var reject = (reason) => {
       if (this.status === 'pending') {
         this.status = 'rejected';
-        this.rejectVal = value;
-        // 依次执行失败后的回调事件队列
-        this.rejectFn.forEach(fn => {
-          fn();
-        });
-        console.log(4, 'reject: ' + this.status);
+        this.reason = reason;
+        this.onRejectedArray.forEach(callback => {
+          callback(reason);
+        })
       }
     };
-    // 函数体
+    // 异步执行操作
     try {
-      callback(resolve, reject);
-      console.log(1, 'callback: ' + this.status);
-    } catch (err) {
-      reject(err);
+      executor(resolve, reject);
+      console.log(1);
+    } catch (error) {
+      reject(error);
     }
   }
-  // promise 执行完成之后的内置公共方法
+  // 原型上的执行成功方法
   then (onFulfilled, onRejected) {
-    console.log(2, 'then: ' + this.status);
-    switch(this.status) {
+    console.log(2);
+    onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : data => data;
+    onRejected = typeof onRejected === 'onRejected' ? onRejected : error => { throw error };
+    switch (this.status) {
       case 'pending':
-        this.resolveFn.push(() => {
-          onFulfilled(this.resolveVal);
-        });
-        this.rejectFn.push(() => {
-          onRejected(this.rejectVal);
-        });
+        this.onFulfilledArray.push(onFulfilled);
+        this.onRejectedArray.push(onRejected);
         break;
       case 'fulfilled':
-        onFulfilled(this.resolveVal);
+        onFulfilled(this.value);
         break;
-      case 'rejected': 
-        onRejected(this.rejectVal);
+      case 'rejected':
+        onRejected(this.reason);
         break;
-      default:
-      console.log('default');
+      default: console.log('default');
     }
   }
-  // 执行失败后的内置公共方法
-  catch(onRejected) {
-    onRejected(this.rejectVal);
+  // 原型上的执行失败方法
+  catch (onRejected) {
+    onRejected(this.reason);
   }
 }
 
