@@ -25,7 +25,7 @@ async function loop(id) {
   return status;
 }
 // 定时轮询发送异步请求
-async function async(params) {
+function async(params) {
   const result = await fetch(params);
   const id = result.data.id;
   if (id) {

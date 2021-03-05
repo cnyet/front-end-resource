@@ -1,14 +1,8 @@
-function greet(params: any) {
+interface Request {
+  cancel: () => {}
+}
+
+function greet(urls: [], limit: number, done: () => {}):  {
   console.log(params);
 }
 
-@greet
-class Foo {
-  name: string;
-  constructor (name: string) {
-    this.name = name;
-  }
-}
-
-var foo = new Foo('hello');
-console.log(foo);
