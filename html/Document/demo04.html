@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>正在当前页面</title>
+</head>
+<body>
+  <h3>测试 visibilitychange 事件</h3>
+  <script type="text/javascript">
+    document.addEventListener('visibilitychange', function(e){
+      console.log(document.visibilityState);
+      if (document.visibilityState === 'visible') {
+        document.title = '正在当前页面';
+      } else {
+        document.title = '隐藏页面';
+      }
+    });
+  </script>
+</body>
+</html>

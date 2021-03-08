@@ -59,28 +59,23 @@ function sendRequest(urls, max, callback) {
  * https://blog.csdn.net/qq_33081841/article/details/88583735
  */
 
-async function fetchRequest(urls, max, callback) {
+function fetchRequest(urls, max, callback) {
   var count = 0;
-  var result = null;
-  var send = function (url) {
-    return new Promise(function(resolve){
-      setTimeout(function() {
-        console.log('正在发送', url);
-        resolve(url);
-      }, 1000);
-    });
-  }
-  while (count <= max) {
+  var flag = 0;
+  async function send () {
     count++;
-    result = await send(urls[count]);
-    result.then(function(res){
-      count--;
-    })
+    console.log('正在发送', urls[flag++]);
+    await Promise.resolve(urls[flag++]);
+    count--;
+    send();
+    callback();
   }
-  callback();
+  while (count < max) {
+    send();
+  }
+
 }
 
 fetchRequest([1,2,3,4,5], 2, function() {
   console.log('所有请求发送完毕');
 });
-
