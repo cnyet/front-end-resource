@@ -25,12 +25,9 @@
 
 function sendRequest(urls, max, callback) {
   var count = 0; // 记录正在请求的并发数
-  var url = null;
   var request = function() {
     count++; // 增加一个请求数
-    url = urls.shift();
-    console.log('正在发送', url);
-    fetch(url).then(function() {
+    fetch(urls.shift()).then(function() {
       count--;
       if (urls.length) {
         request();
@@ -52,30 +49,59 @@ function sendRequest(urls, max, callback) {
 // });
 
 /**
- * 思路2: 循环遍历
- * 1. 用count记录已经发送的请求数，循环遍历urls，每次发送max长度的请求数组
- * 2. 有任何一个请求返回，再次发送一个新的Promise.race()
- * 3. 直到count等于urls长度时，
- * https://blog.csdn.net/qq_33081841/article/details/88583735
+ * 思路2: 
+ * 1. 用count记录已经发送的请求数，先并发发送max个请求
+ * 2. 当已经发送的请求有任何一个返回，就递归再发一个请求
+ * 3. 直到count等于urls长度时，并标识这是最后一个请求了，在最后一个返回中调用callback
  */
 
 function fetchRequest(urls, max, callback) {
-  var count = 0;
-  var flag = 0;
-  async function send () {
-    count++;
-    console.log('正在发送', urls[flag++]);
-    await Promise.resolve(urls[flag++]);
-    count--;
-    send();
-    callback();
+  var count = 0; // 记录已经发送的请求数
+  var len = urls.length; // 所请请求的个数
+  var controller = new AbortController(); // 实例化一个
+  var signal = controller.signal;
+  // 取消所有请求
+  var cancel = function() {
+    controller.abort();
+    console.log('取消所有请求');
   }
-  while (count < max) {
-    send();
+  // 递归发送请求
+  var request = function () {
+    if (urls.length) {
+      count++;
+      return send(urls.shift(), signal, count === len).then(function(res){
+        if (res === 'done') {
+          callback();
+        } else {
+          request();
+        }
+      })
+    }
   }
-
+  // 1. 先并发请求 max 个请求
+  for (var i = 0; i < max; i++) {
+    request();
+  }
+  return {cancel};
+}
+// 模拟fetch请求
+function send (url, signal, status) {
+  return new Promise(function(resolve, reject){
+    fetch(url, {signal}).then(function() {
+      resolve(status ? 'done' : '');
+    });
+  })
+  // return new Promise(function(resolve, reject) {
+  //   setTimeout(function() {
+  //     resolve(status ? 'done' : '');
+  //   }, 2000);
+  // });
 }
 
-fetchRequest([1,2,3,4,5], 2, function() {
-  console.log('所有请求发送完毕');
+fetchRequest([1,2,3,4,5], 3, function() {
+  console.log('请求已完成');
 });
+
+// setTimeout(function() {
+//   fetchRequest.cancel();
+// }, 1000);
