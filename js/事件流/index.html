@@ -1,40 +1,75 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <title>事件流</title>
+  <style>
+    #wrap1{
+      width: 300px;
+      height: 300px;
+      background-color: blue;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #wrap2{
+      width: 100px;
+      height: 100px;
+      background-color: greenyellow;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #btn{
+      width: 50px;
+      height: 30px;
+      color: white;
+      background-color: brown;
+    }
+  </style>
 </head>
 
 <body>
   <h3>事件捕获 - 事件目标 - 事件冒泡</h3>
-  <button id="btn">按钮</button>
+  <div id="wrap1">
+    <p id="wrap2">
+      <button id="btn">按钮</button>
+    </p>
+  </div>
   <script type="text/javascript">
+    window.addEventListener("DOMContentLoaded", function(e) {
+      console.log(e);
+    })
   window.onload = function() {
     var btn = document.getElementById('btn');
-    btn.addEventListener('click', function() {
-      console.log('btn处于事件捕获阶段');
+    var wrap1 = document.getElementById('wrap1');
+    var wrap2 = document.getElementById('wrap2');
+    btn.addEventListener('click', function(e) {
+      console.log('btn', e);
     }, true);
-    btn.addEventListener('click', function() {
-      console.log('btn处于事件冒泡阶段');
-    }, false);
+    wrap1.addEventListener('click', function() {
+      console.log('wrap1');
+    }, true);
+    wrap2.addEventListener('click', function() {
+      console.log('wrap2');
+    }, true);
 
-    document.addEventListener('click', function() {
-      console.log('document处于事件捕获阶段');
-    }, true);
+    // document.addEventListener('click', function() {
+    //   console.log('document处于事件捕获阶段');
+    // }, true);
     document.addEventListener('click', function() {
       console.log('document处于事件冒泡阶段');
     }, false);
 
-    document.documentElement.addEventListener('click', function() {
-      console.log('html处于事件捕获阶段');
-    }, true);
+    // document.documentElement.addEventListener('click', function() {
+    //   console.log('html处于事件捕获阶段');
+    // }, true);
     document.documentElement.addEventListener('click', function() {
       console.log('html处于事件冒泡阶段');
     }, false);
 
-    document.body.addEventListener('click', function() {
-      console.log('body处于事件捕获阶段');
-    }, true);
+    // document.body.addEventListener('click', function() {
+    //   console.log('body处于事件捕获阶段');
+    // }, true);
     document.body.addEventListener('click', function() {
       console.log('body处于事件冒泡阶段');
     }, false);

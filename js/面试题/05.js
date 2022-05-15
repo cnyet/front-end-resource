@@ -41,6 +41,7 @@ function sendRequest(urls, max, callback) {
     if (count < max) {
       request();
     }
+  }
   request();
 }
 
