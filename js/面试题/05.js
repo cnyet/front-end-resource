@@ -13,6 +13,10 @@
  * 3. count是正在执行的请求数量，当完成一个请求count-1，立即再发送一个请求count+1，保证每次只有limit个请求正在执行，
  * 4. 只要最后所有的请求都执行完毕 count = 0时，执行 callback 函数
  * 
+ *
+ * AbortController 接口表示一个控制器对象，允许你根据需要中止一个或多个 Web 请求。
+ * 当 abort() 被调用时，这个 fetch() promise 将 reject 一个名为 AbortError 的 DOMException。
+ * 
  * 注意⚠️：Promise.all()并不能控制请求的并发数
  * 原因是 Promise.all() 只是将一组请求同时发送，如果再次发送Promise.all()，中间是不会阻塞的
  * Promise.race() 不能确定最后一次发送请求什么时候完成
@@ -24,26 +28,65 @@
  */
 
 function sendRequest(urls, max, callback) {
-  var count = 0; // 记录正在请求的并发数
-  var request = function() {
-    count++; // 增加一个请求数
-    fetch(urls.shift()).then(function() {
-      count--;
-      if (urls.length) {
-        request();
+  const controller = new AbortController(); // 实例化一个
+  const signal = controller.signal;
+  const len = urls.length; // 请求总数量
+  const res = new Array(len).fill(undefined); // 请求结果数组
+  const request = new Promise(function(resolve, reject) {
+    let sendCount = 0; // 已发送的请求数量
+    let finishCount = 0;
+
+    const next = function() {
+      if (finishCount >= len) {
+        resolve(res);
+        return;
       }
-      // 所有请求完成
-      if (count === 0) {
-        callback();
+      const current = sendCount++ 
+      const url = urls[current];
+      if (!url) { return }
+      console.log(url, '开始请求')
+      fetch(url, { signal })
+        .then(response => response.json())
+        .then(result => {
+          const timer = Math.floor(Math.random() * 10) * 1000
+          setTimeout(function(){
+            finishCount++
+            console.log('=>', url, '第'+current+'个请求完成')
+            res[current] = result;
+            if (current < len) {
+              next()
+            }
+          }, timer)
+        })
       }
-    });
-    // 递归的结束条件
-    if (count < max) {
-      request();
+
+    while (sendCount < max) {
+      next()
+    }
+  })
+  // 请求完成
+  request.then(res => {
+    callback(res)
+  })
+  
+  return {
+    cancel: function() {
+      controller.abort();
+      console.log('取消所有请求');
     }
   }
-  request();
 }
+
+var urls = ['data/1.json', 'data/2.json', 'data/3.json', 'data/4.json', 'data/5.json', 'data/6.json'];
+var max = 4;
+var result = sendRequest(urls, max, function(res) {
+  console.log('finish', res)
+})
+
+document.getElementById('cancel').addEventListener('click', function() {
+  result.cancel()
+})
+
 
 // sendRequest([1,2,3,4,5], 2, function() {
 //   console.log('所有请求发送完毕');

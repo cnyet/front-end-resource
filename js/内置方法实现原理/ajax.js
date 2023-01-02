@@ -40,7 +40,7 @@ xhr.open('get', url, true);
  */
 xhr.setRequestHeader('Content-Type', 'application/json');  // 设置传递的数据类型,multipart/form-data是提交表单数据
 xhr.responseType = 'json';  // 设置响应文本的类型
-xhr.send(data);  // 发送HTTP请求，并传递数据
+
 /**
  * 当 readyState 属性发生变化时执行的回调函数
  * XMLHttpRequest.readyState 属性返回一个 XMLHttpRequest 代理当前所处的状态
@@ -50,13 +50,30 @@ xhr.send(data);  // 发送HTTP请求，并传递数据
  * 2：HEADERS_RECEIVED (已获取响应头)，send() 方法已经被调用，并且头部和状态已经可获得
  * 3：LOADING (正在下载响应体)，响应体下载中; responseText中已经获取了部分数据
  * 4：DONE (请求完成)，下载操作已完成，整个请求过程已经完毕
- */
+ */new 
 xhr.onreadystatechange = function() {
   console.log(xhr.readyState, xhr.status, xhr.statusText);
   if(xhr.readyState == 4){
     var dataSource = xhr.response;
     console.log(dataSource); // 返回结果
   }
+}
+// 接收到响应数据时触发
+xhr.onloadstart = function (e) {
+  console.log('loadstart', e)
+}
+
+// 发送HTTP请求，并传递数据
+xhr.send(data);
+
+// 请求成功完成时触发
+xhr.onload = function(e) {
+  console.log('load', e)
+}
+
+// 当请求结束时触发，无论请求成功 ( load) 还是失败 (abort 或 error)。
+xhr.onloadend = function(e) {
+  console.log('loadend', e)
 }
 /** ================================================= */
 

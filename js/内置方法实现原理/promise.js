@@ -77,3 +77,30 @@ var promise = new Promise(function (resolve, reject) {
 promise.then(function(value) {
   console.log(3, 'then callback: ' + value);
 });
+
+const p1 = Promise.reject('fail');
+
+const p2 = new Promise(function(resolve, reject) {
+  setTimeout(resolve, 500, '完成')
+})
+
+const p3 = new Promise(function(resolve, reject) {
+  setTimeout(resolve, 100, '很快')
+})
+
+// all() 返回所有 fulfilled 的数组，或者第一个 rejected 的值
+Promise.all([p1, p2, p3]).then(res => {
+  console.log(res)
+})
+
+// any() 返回第一个fulfilled的值，如果可迭代对象内所有的 promises 都被拒绝了，会返回AggregateError，并进入catch
+Promise.any([p1, p2, p3]).then(res => {
+  console.log(res)
+})
+
+// race() 返回第一个 fulfilled 或者 rejected 的值
+Promise.race([p1, p2, p3]).then(res => {
+  console.log(res)
+})
+
+

@@ -51,3 +51,59 @@ class Bar {
 
 var obj2 = new Bar('bar');
 console.log(obj2.constructor);
+
+/**
+ * class 中的定义的变量或属性，编译以后会绑定在 this上
+ * 而有 static 关键字的属性或方法，编译以后会直接绑定在 class 对象上
+ * class 中声明的函数，编译以后会绑定在 class prototype 对象上
+ */
+class Greeter {
+  property = "property";
+  hello;
+  constructor(m) {
+    this.hello = m;
+  }
+  // 
+  // great () {
+  //   return 'Greater';
+  // }
+  great = function() {
+    return 'Greater';
+  }
+  static getName() {
+    console.log('getName')
+  }
+}
+
+class Greet {
+  constructor() {
+    Greeter.call(this, 123);
+  }
+}
+console.log(new Greet());
+
+// => 
+
+var Greeter = /** @class */ (function() {
+  function Greeter(m) {
+    this.property = "property";
+    this.great = function() {
+      return 'Greater';
+    };
+    this.hello = m;
+  }
+  // Greeter.prototype.great = function() {
+  //   return 'Greater';
+  // };
+  Greeter.getName = function() {
+    console.log('getName');
+  };
+  return Greeter;
+}());
+var Greet = /** @class */ (function() {
+  function Greet() {
+    Greeter.call(this, 123);
+  }
+  return Greet;
+}());
+console.log(new Greet());
