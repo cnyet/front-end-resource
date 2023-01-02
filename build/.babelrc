@@ -1,0 +1,12 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env", // 环境预设
+      {
+        "targets": "defaults", // 以 browserslist 选项的作为运行环境输出编译结果
+        "useBuiltIns": "usage", // core-js模块指定的功能会直接被引入源文件，相同模块只引入一次
+        "corejs": "3.19" // @babel/polyfill被废弃以后，用指定的corejs代替polyfills
+      }
+    ]
+  ]
+}

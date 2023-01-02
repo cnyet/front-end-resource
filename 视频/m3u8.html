@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>dplayer+ckplayer</title>
+</head>
+<link rel="stylesheet" type="text/css" href="/player/dplayer/DPlayer.min.css">
+<link rel="stylesheet" type="text/css" href="/player/css/share.css">
+
+<body>
+  <div class="video" id="mvideo"></div>
+  <script type="text/javascript" src="/player/dplayer/hls.min.js" charset="utf-8"></script>
+  <script type="text/javascript" src="/player/dplayer/DPlayer.min.js" charset="utf-8"></script>
+  <script type="text/javascript" src="/player/ckplayer/ckplayer.js" charset="utf-8"></script>
+  <script type="text/javascript" src="/player/js/jquery-1.11.2.min.js" charset="utf-8"></script>
+  <script src="/player/js/m3u8-parser.min.js"></script>
+  <script type="text/javascript" src="/player/js/index.js" charset="utf-8"></script>
+  <script type="text/javascript">
+  var main = "https://ppvod.fbzzw.cn/20190902/KTemvbAM/index.m3u8"; //播放URL
+
+  var xml = ""
+
+  var pic = ""
+
+  var videoid = "video";
+
+  var box = "mvideo"; //这里是新增的参数
+
+  var playertype = "dplayer"; //如果需要强制ckplayer则改为ckplayer
+
+  var t = BrowserType();
+
+  if (t && t.indexOf("IE") >= 0)
+
+    playertype = "ckplayer"
+
+  init();
+  </script>
+</body>
+
+</html>
+init();
+</script>
+</body>
+
+</html>
